@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <me.dm7.barcodescanner.core.ViewFinderView
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
         android:id="@+id/zxscan"
         android:layout_above="@+id/layout_result"
         android:layout_width="match_parent"

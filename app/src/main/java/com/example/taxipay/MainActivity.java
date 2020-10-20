@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scannerView = new ZXingScannerView(this);
         scannerView = (ZXingScannerView)findViewById(R.id.zxscan);
         txtResult = (TextView)findViewById(R.id.txt_result);
 
@@ -72,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result rawResult) {
         txtResult.setText(rawResult.getText());
+        scannerView.startCamera();
 
     }
 }
