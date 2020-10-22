@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ private static final String TAG = "QRGenerator";
         scanBtn = findViewById(R.id.scanBtn);
         qrImage = findViewById(R.id.qrPlaceHolder);
 
+
         generateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +47,13 @@ private static final String TAG = "QRGenerator";
                     // Setting Bitmap to ImageView
                     qrImage.setImageBitmap(qrBits);
                 }
+            }
+
+        });
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ScannerQR.class));
             }
         });
     }

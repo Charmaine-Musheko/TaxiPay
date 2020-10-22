@@ -2,6 +2,7 @@ package com.example.taxipay;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class ScannerQR extends AppCompatActivity implements ZXingScannerView.Res
             setContentView(R.layout.activity_main);
             scannerView = (ZXingScannerView) findViewById(R.id.zxscan);
             txtResult = (TextView) findViewById(R.id.txt_result);
+
 
             Dexter.withActivity(this)
                     .withPermission(Manifest.permission.CAMERA)

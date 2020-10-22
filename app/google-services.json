@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "62841532713",
+    "firebase_url": "https://taxipay-5165d.firebaseio.com",
+    "project_id": "taxipay-5165d",
+    "storage_bucket": "taxipay-5165d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62841532713:android:ec73a7dbf38098a3eac738",
+        "android_client_info": {
+          "package_name": "com.example.taxipay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62841532713-ee9n5834he0kb3qk4jvj0f12456l6qmn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.taxipay",
+            "certificate_hash": "6530f62be9f17123f2b67f7e17566ca7122f115a"
+          }
+        },
+        {
+          "client_id": "62841532713-3vvmt765uoirb5ejvsbn8vd4p0q0uh3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxrS_ng5YqbqwdMpatWshSuvkRvjHnhzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62841532713-3vvmt765uoirb5ejvsbn8vd4p0q0uh3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
