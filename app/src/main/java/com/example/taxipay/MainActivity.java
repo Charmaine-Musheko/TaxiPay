@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
         scannerView = (ZXingScannerView) findViewById(R.id.zxscan);
         txtResult = (TextView) findViewById(R.id.txt_result);
 
