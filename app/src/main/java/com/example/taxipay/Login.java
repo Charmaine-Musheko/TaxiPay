@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         mtexttaxi = findViewById(R.id.textTaxi);
         mtexting = findViewById(R.id.textCreate);
         mEmail = findViewById(R.id.Email1);
@@ -71,7 +72,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        mlogin.setOnClickListener(new View.OnClickListener() {
+        mtexted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
