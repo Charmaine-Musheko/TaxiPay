@@ -27,6 +27,7 @@
         android:layout_height="44dp"
         android:layout_marginTop="12dp"
         android:text="Logout"
+        android:onClick="logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
