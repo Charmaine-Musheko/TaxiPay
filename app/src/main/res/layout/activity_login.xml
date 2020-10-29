@@ -8,26 +8,10 @@
     tools:context=".Login">
 
     <TextView
-        android:id="@+id/textTaxi"
-        android:layout_width="223dp"
-        android:layout_height="51dp"
-        android:fontFamily="@font/alegreya_sans_sc"
-        android:text="Taxi Pay"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.202" />
-
-    <TextView
         android:id="@+id/textCreate"
         android:layout_width="175dp"
         android:layout_height="42dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/alegreya_sans_sc"
         android:text="Create New Account"
         android:textAlignment="center"
@@ -43,14 +27,14 @@
         android:layout_width="376dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="#B0FFFFFF"
         android:ems="10"
         android:hint="E_mail"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCreate" />
 
@@ -121,5 +105,15 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+    <ImageView
+        android:id="@+id/textTaxi"
+        android:layout_width="531dp"
+        android:layout_height="223dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/taxi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

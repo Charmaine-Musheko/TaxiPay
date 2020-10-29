@@ -1,6 +1,7 @@
 package com.example.taxipay;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +36,7 @@ import org.json.JSONObject;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class MainActivity extends AppCompatActivity implements PaymentResultListener {
+public class MainActivity extends AppCompatActivity  {
 
     private ZXingScannerView scannerView;
     private TextView txtResult;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements PaymentResultList
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userID;
-    Button pay;
+    Button pay, nxt;
     String TAG = "MainActivity";
 
     @Override
@@ -57,80 +58,38 @@ public class MainActivity extends AppCompatActivity implements PaymentResultList
         phone = findViewById(R.id.profilePhone);
         fullName = findViewById(R.id.profileName);
         email = findViewById(R.id.profileEmail);
-        pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startPayment();
-            }
-        });
+        nxt = findViewById(R.id.next);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = fAuth.getCurrentUser().getUid();
+        nxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity();
+            }
+        });
         DocumentReference documentReference = fStore.collection("users").document(userID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(DocumentSnapshot value, FirebaseFirestoreException error) {
-                phone.setText(value.getString("phone"));
-                fullName.setText(value.getString("fName"));
-                email.setText(value.getString("email"));
+            public void onEvent(@NonNull DocumentSnapshot documentSnapshot, @NonNull FirebaseFirestoreException error) {
+                if (documentSnapshot != null) {
+                    phone.setText(documentSnapshot.getString("phone"));
+                    fullName.setText(documentSnapshot.getString("fName"));
+                    email.setText(documentSnapshot.getString("email"));
+                }
             }
         });
 
-    }
-    public void startPayment() {
-        Checkout checkout = new Checkout();
-
-        checkout.setKeyID("<rzp_test_KRN7IqdNhqtqPq>");
-        /**
-         * Instantiate Checkout
-         */
-
-
-        /**
-         * Set your logo here
-         */
-        //checkout.setImage(R.drawable.logo);
-
-        /**
-         * Reference to current activity
-         */
-        final Activity activity = this;
-
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-
-            options.put("name", "Merchant Name");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", "50000");//pass amount in currency subunits
-            options.put("prefill.email", "gaurav.kumar@example.com");
-            options.put("prefill.contact","9988776655");
-            checkout.open(activity, options);
-        } catch(Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
-        }
     }
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), Login.class));
         finish();
     }
-
-    @Override
-    public void onPaymentSuccess(String s) {
-    Toast.makeText(this, "Payment successful", Toast.LENGTH_SHORT).show();
+    public void openActivity(){
+        Intent intent = new Intent(this, Payment.class);
+        startActivity(intent);
     }
 
-    @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(this,"Error", Toast.LENGTH_SHORT).show();
-
-    }
 }

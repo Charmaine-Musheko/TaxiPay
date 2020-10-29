@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,8 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
     EditText mName, mpassword, memail, mphone;
     Button mregister;
-    TextView mtext, mtext_account, mlogin;
+    TextView  mtext_account, mlogin;
+    ImageView mtext;
     FirebaseAuth fAuth;
     ProgressBar mProgressBar;
     FirebaseFirestore fStore;

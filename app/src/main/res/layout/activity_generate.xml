@@ -4,29 +4,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background">
 
     <Button
         android:id="@+id/generateBtn"
         android:layout_width="335dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="532dp"
+        android:layout_marginBottom="436dp"
         android:text="GENERATE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/qrPlaceHolder"
-        android:layout_width="342dp"
-        android:layout_height="297dp"
+        android:layout_width="330dp"
+        android:layout_height="266dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/generateBtn"
-        app:layout_constraintVertical_bias="0.187"
+        app:layout_constraintVertical_bias="0.3"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -49,8 +50,20 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/generateBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintVertical_bias="0.849" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="596dp"
+        android:layout_height="298dp"
+        app:layout_constraintBottom_toTopOf="@+id/qrInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307"
+        app:srcCompat="@drawable/taxi" />
 </androidx.constraintlayout.widget.ConstraintLayout>
