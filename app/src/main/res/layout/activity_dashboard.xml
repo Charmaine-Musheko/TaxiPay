@@ -79,4 +79,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/profilePhone"
         app:layout_constraintTop_toBottomOf="@+id/profilePhone" />
+
+    <Button
+        android:id="@+id/pay_button"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="72dp"
+        android:text="Payment"
+        android:onClick="Pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -92,13 +93,18 @@ public class Register extends AppCompatActivity {
                             user.put("phone", phone);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
-
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                  Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
                                 }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG,"onFailure" + e.toString());
+                                }
                             });
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                         } else {
                             Toast.makeText(Register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             mProgressBar.setVisibility(View.GONE);
