@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.4'
@@ -15,9 +16,15 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "https://mvnrepository.com/artifact/com.razorpay/checkout"
+        }
         google()
         jcenter()
         mavenCentral()
+        flatDir{
+            dirs 'libs'
+        }
     }
 }
 

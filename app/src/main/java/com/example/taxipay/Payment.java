@@ -1,11 +1,13 @@
 package com.example.taxipay;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,72 +18,67 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
-public class Payment extends AppCompatActivity implements PaymentResultListener {
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class Payment extends AppCompatActivity implements PaymentResultListener {
+    private TextView textViewResult;
     Button pay;
     String TAG = "Payment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment);
+        Checkout.preload(getApplicationContext());
         pay = findViewById(R.id.pay_button);
+        String sAmount = "100";
+        final int amount = Math.round(Float.parseFloat(sAmount) * 100);
+
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPayment();
+                Checkout checkout = new Checkout();
+                checkout.setKeyID("<rzp_test_KRN7IqdNhqtqPq>");
+                JSONObject options = new JSONObject();
+                try {
+                    options.put("name", "Merchant Name");
+                    options.put("description", "Reference No. #123456");
+                    options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+                    //from response of step 3.
+                    options.put("theme.color", "#3399cc");
+                    options.put("currency", "INR");
+                    options.put("amount", amount);//pass amount in currency subunits
+                    options.put("prefill.email", "gaurav.kumar@example.com");
+                    options.put("prefill.contact", "9988776655");
+                    checkout.open(Payment.this, options);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error in starting Razorpay Checkout", e);
+                }
+
             }
         });
-    }
-
-    public void startPayment() {
-        Checkout checkout = new Checkout();
-
-        checkout.setKeyID("<rzp_test_KRN7IqdNhqtqPq>");
-        /**
-         * Instantiate Checkout
-         */
-
-
-        /**
-         * Set your logo here
-         */
-        //checkout.setImage(R.drawable.logo);
-
-        /**
-         * Reference to current activity
-         */
-        final Activity activity = this;
-
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-
-            options.put("name", "Merchant Name");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", "50000");//pass amount in currency subunits
-            options.put("prefill.email", "gaurav.kumar@example.com");
-            options.put("prefill.contact", "9988776655");
-            checkout.open(activity, options);
-        } catch (Exception e) {
-            Log.e(TAG, "Error in starting Razorpay Checkout", e);
-        }
     }
 
 
     @Override
     public void onPaymentSuccess(String s) {
-        Toast.makeText(this, "Payment successful", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Payment ID");
+        builder.setMessage(s);
+        builder.show();
+
+
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
 
     }
 }

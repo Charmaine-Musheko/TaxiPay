@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/generateQR_pay"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/QR_generate" />
+        <item
+            android:id="@+id/scan_payment"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/scan_paid" />
+
+    </group>
+    <item android:title="Profile">
+        <menu><group android:checkableBehavior="single">
+            <item
+                android:icon="@drawable/ic_menu_send"
+                android:id="@+id/nav_login"
+                android:title="@string/login_nav" />
+            <item
+                android:icon="@drawable/rzp_name_logo"
+                android:id="@+id/nav_profile"
+                android:title="@string/profile" />
+            <item
+                android:icon="@drawable/abc_vector_test"
+                android:id="@+id/nav_logout"
+                android:title="@string/logout" />
+        </group>
+        </menu>
+    </item>
+    <item android:title="Payment">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:icon="@drawable/rzp_secured_by_bg"
+                    android:id="@+id/nav_bank"
+                    android:title="@string/banks" />
+                <item
+                    android:icon="@drawable/rzp_loader_circle"
+                    android:id="@+id/nav_education"
+                    android:title="@string/education" />
+                <item
+                    android:icon="@drawable/common_full_open_on_phone"
+                    android:id="@+id/nav_shop"
+                    android:title="@string/shops" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Share">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:icon="@drawable/ic_menu_share"
+                    android:id="@+id/nav_share"
+                    android:title="@string/share" />
+                <item
+                    android:icon="@drawable/ic_menu_slideshow"
+                    android:id="@+id/nav_rate_us"
+                    android:title="@string/rate_us" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
