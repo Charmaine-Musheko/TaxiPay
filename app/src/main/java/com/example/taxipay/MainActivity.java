@@ -92,15 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);
     }
-    public void ClickLogo(View v){
-        closeDrawer(drawerLayout);
-    }
-
-    private void closeDrawer(DrawerLayout drawerLayout) {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -172,9 +163,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        closeDrawer(drawerLayout);
-    }
+
 }
