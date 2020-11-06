@@ -1,14 +1,18 @@
 package com.example.taxipay;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.Result;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -21,14 +25,14 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class ScannerQR extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
         private ZXingScannerView scannerView;
-        private TextView txtResult;
-
+        private EditText txtResult;
+    EditText edit_text = null;
         @Override 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             scannerView = (ZXingScannerView) findViewById(R.id.zxscan);
-            txtResult = (TextView) findViewById(R.id.txt_result);
+            txtResult = (EditText) findViewById(R.id.txt_result);
 
 
             Dexter.withActivity(this)
@@ -154,7 +158,12 @@ public class ScannerQR extends AppCompatActivity implements ZXingScannerView.Res
                 txtResult.setText(text);
             }
             scannerView.resumeCameraPreview(this);
-        }
 
     }
+    public void paymentActivity(){
+        Intent intent = new Intent(this, Payment.class);
+        startActivity(intent);
+    }
+
+}
 

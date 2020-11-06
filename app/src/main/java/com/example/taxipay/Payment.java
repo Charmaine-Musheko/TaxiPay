@@ -1,84 +1,94 @@
 package com.example.taxipay;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.razorpay.Checkout;
-import com.razorpay.PaymentResultListener;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
-import org.json.JSONObject;
+import org.json.JSONException;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class Payment extends AppCompatActivity {
+    private static final int PAYPAL_REQUEST_CODE = 7777;
+    public class Config {
+        public static final String PAYPAL_CLIENT_ID = "AQSaKN38vPZps2dGM21DaMnRtRj8q7pSmSlPl4xYzAb64XwGOXqxN_aRYQeRflzMr8JXLrrA8xsRYJAt";
+    }
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(Config.PAYPAL_CLIENT_ID);
+    Button btnPayNow;
+    EditText edtAmount;
 
-public class Payment extends AppCompatActivity implements PaymentResultListener {
-    private TextView textViewResult;
-    Button pay;
-    String TAG = "Payment";
+    String amount = "";
+
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment);
-        Checkout.preload(getApplicationContext());
-        pay = findViewById(R.id.pay_button);
-        String sAmount = "100";
-        final int amount = Math.round(Float.parseFloat(sAmount) * 100);
+        setContentView(R.layout.activity_payment);
 
-        pay.setOnClickListener(new View.OnClickListener() {
+        //start paypal service
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        startService(intent);
+
+        btnPayNow = findViewById(R.id.btnPayNow);
+        edtAmount = findViewById(R.id.edtAmount);
+
+        btnPayNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Checkout checkout = new Checkout();
-                checkout.setKeyID("<rzp_test_KRN7IqdNhqtqPq>");
-                JSONObject options = new JSONObject();
-                try {
-                    options.put("name", "Merchant Name");
-                    options.put("description", "Reference No. #123456");
-                    options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-                    //from response of step 3.
-                    options.put("theme.color", "#3399cc");
-                    options.put("currency", "INR");
-                    options.put("amount", amount);//pass amount in currency subunits
-                    options.put("prefill.email", "gaurav.kumar@example.com");
-                    options.put("prefill.contact", "9988776655");
-                    checkout.open(Payment.this, options);
-                } catch (Exception e) {
-                    Log.e(TAG, "Error in starting Razorpay Checkout", e);
-                }
-
+                processPayment();
             }
         });
     }
 
-
-    @Override
-    public void onPaymentSuccess(String s) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Payment ID");
-        builder.setMessage(s);
-        builder.show();
-
-
+    private void processPayment() {
+        amount = edtAmount.getText().toString();
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(amount)),"USD",
+                "Purchase Goods", PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
+        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
     }
 
     @Override
-    public void onPaymentError(int i, String s) {
-        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PAYPAL_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+                if (confirmation != null){
+                    try {
+                        String paymentDetails = confirmation.toJSONObject().toString(4);
+                        startActivity(new Intent(this,PaymentDetails.class)
+                                .putExtra("Payment Details",paymentDetails)
+                                .putExtra("Amount",amount));
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED)
+                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show();
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)
+            Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
     }
 }

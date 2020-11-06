@@ -27,22 +27,15 @@
     <EditText
         android:id="@+id/fullName"
         android:layout_width="376dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="420dp"
         android:background="#BAFFFFFF"
+        android:layout_height="@dimen/height_fullname"
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
         android:text="Full Name"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_newaccount"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/text_newaccount" />
 
     <EditText
         android:id="@+id/Email"
@@ -122,19 +115,19 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="152dp"
         android:layout_height="15dp"
-        android:indeterminate="true"
-        android:progress="25"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:indeterminate="true"
+        android:progress="25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_again" />
 
     <ImageView
         android:id="@+id/text_taxipay"
-        android:layout_width="375dp"
-        android:layout_height="232dp"
+        android:layout_width="496dp"
+        android:layout_height="258dp"
         android:layout_marginBottom="39dp"
         app:layout_constraintBottom_toTopOf="@+id/fullName"
         app:layout_constraintEnd_toEndOf="parent"
